@@ -1,0 +1,62 @@
+/* styles.css */
+
+:root {
+    --primary-colour: black;
+    --secondary-colour: purple;
+}
+
+/* Global styles */
+.ta-catalog {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+}
+
+.ta-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 200px;
+    max-width: 300px;
+    cursor: pointer;
+}
+
+.ta-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.ta-card-link {
+    text-decoration: none; /* Removes underline from links */
+    color: inherit; /* Inherits text color from parent */
+}
+
+/* Main Menu styles */
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Navigation Bar styles */
+.navbar {
+    display: flex;
+}
+
+.nav-button {
+    display: block;
+    background: var(--primary-colour);
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.nav-button:hover {
+    background-color: var(--secondary-colour);
+}

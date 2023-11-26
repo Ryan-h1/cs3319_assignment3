@@ -1,5 +1,5 @@
 <?php
-require_once 'config.php'; // Include the database connection
+require_once __DIR__ . '/../config.php'; // Include the configuration file
 
 // Create connection
 $connection = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
@@ -8,5 +8,3 @@ $connection = new mysqli(DB_SERVER, DB_USERNAME, DB_PASSWORD, DB_NAME);
 if ($connection->connect_error) {
     die("Connection failed: " . $connection->connect_error);
 }
-
-?>

@@ -12,34 +12,53 @@ require_once STYLES_PATH . 'colours.php'; // Include the colours file
         <span class="close-button" onclick="closeModal()">&times;</span>
         <h2 id="modal-title"></h2>
         <p id="modal-message"></p>
+        <a class="modal-proceed-button" id="modal-proceed-button">Proceed</a>
     </div>
 </div>
 
-<script>
-    const rootStyle = getComputedStyle(document.documentElement);
-    const errorColor = rootStyle.getPropertyValue('--danger-colour');
-    const successColor = rootStyle.getPropertyValue('--success-colour');
 
-    function showModal(type, title, message) {
+<script>
+    /**
+     * Shows a modal with the given type, title, and message.
+     * @param type - either 'danger' or 'success'
+     * @param title - the title of the modal
+     * @param message - the message of the modal
+     * @param buttonAction - the action to perform when the proceed button is clicked
+     */
+    function showModal(type, title, message, buttonAction = null) {
         const modal = document.getElementById("modal");
         const titleElement = document.getElementById("modal-title");
         const messageElement = document.getElementById("modal-message");
+        const proceedButton = document.getElementById("modal-proceed-button");
         const modalContent = document.querySelector(".modal-content");
-        const lightenedDanger = lightenColor('<?php echo DANGER_COLOUR; ?>', 30);
-        const lightenedSuccess = lightenColor('<?php echo SUCCESS_COLOUR; ?>', 30);
 
         titleElement.innerText = title;
         messageElement.innerText = message;
 
         // Apply different styles based on the type
-        modalContent.style.borderColor = type === 'error' ? '<?php echo DANGER_COLOUR; ?>'
+        modalContent.style.borderColor = type === 'danger' ? '<?php echo DANGER_COLOUR; ?>'
             : '<?php echo SUCCESS_COLOUR; ?>';
-        titleElement.style.color = type === 'error' ? '<?php echo DANGER_COLOUR; ?>'
+        titleElement.style.color = type === 'danger' ? '<?php echo DANGER_COLOUR; ?>'
             : '<?php echo SUCCESS_COLOUR; ?>';
+
+        // Handle the proceed button
+        if (buttonAction) {
+            proceedButton.style.display = 'inline-block';
+            proceedButton.onclick = function () {
+                eval(buttonAction);
+                closeModal();
+            };
+        } else {
+            proceedButton.style.display = 'none';
+        }
 
         modal.style.display = "block";
     }
 
+
+    /**
+     * Closes the modal.
+     */
     function closeModal() {
         const modal = document.getElementById("modal");
         modal.style.display = "none";

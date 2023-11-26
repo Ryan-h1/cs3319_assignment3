@@ -49,24 +49,28 @@ if (isset($_GET['taid'])) {
 
     <?php include COMPONENTS_PATH . 'navigation-bar.php'; ?>
 
-    <div class="ta-details">
-        <?php if (isset($taDetails)): ?>
-            <!-- Check if the TA has an image URL and display it -->
-            <?php if (!empty($taDetails["image"])): ?>
-                <img src="<?php echo htmlspecialchars($taDetails["image"]); ?>"
-                     alt="Photo of <?php echo htmlspecialchars($taDetails["firstname"]) . " " .
-                         htmlspecialchars($taDetails["lastname"]); ?>">
+    <div class="ta-detail">
+        <div class="ta-detail-card">
+            <?php if (isset($taDetails)): ?>
+                <!-- Check if the TA has an image URL and display it -->
+                <?php if (!empty($taDetails["image"])): ?>
+                    <img class="ta-profile-picture"
+                         src="<?php echo htmlspecialchars($taDetails["image"]); ?>"
+                         alt="Photo of <?php echo htmlspecialchars($taDetails["firstname"]) . " " .
+                             htmlspecialchars($taDetails["lastname"]); ?>">
+                <?php else: ?>
+                    <img class="ta-profile-picture"
+                         src="https://christopherscottedwards.com/wp-content/uploads/2018/07/Generic-Profile.jpg"
+                         alt="Generic profile picture">
+                <?php endif; ?>
+
+                <h2><?php echo htmlspecialchars($taDetails["firstname"]) . " " . htmlspecialchars($taDetails["lastname"]); ?></h2>
+                <p>TA ID: <?php echo htmlspecialchars($taDetails["tauserid"]); ?></p>
+                <p>Degree: <?php echo htmlspecialchars($taDetails["degreetype"]); ?></p>
+                <p>Student Number: <?php echo htmlspecialchars($taDetails["studentnum"]); ?></p>
             <?php endif; ?>
-
-            <h2><?php echo htmlspecialchars($taDetails["firstname"]) . " " . htmlspecialchars($taDetails["lastname"]); ?></h2>
-            <p>TA ID: <?php echo htmlspecialchars($taDetails["tauserid"]); ?></p>
-            <p>Degree: <?php echo htmlspecialchars($taDetails["degreetype"]); ?></p>
-            <p>Student Number: <?php echo htmlspecialchars($taDetails["studentnum"]); ?></p>
-            <!-- Add more details as needed -->
-        <?php endif; ?>
-
+        </div>
     </div>
-
 
     </body>
     </html>

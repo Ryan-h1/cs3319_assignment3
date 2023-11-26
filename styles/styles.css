@@ -1,11 +1,22 @@
 /* styles.css */
 
+/* Global styles */
 :root {
     --primary-colour: black;
     --secondary-colour: purple;
+    --success-colour: green;
+    --danger-colour: red;
+    --warn-colour: orange;
 }
 
-/* Global styles */
+/* Main Menu styles */
+.title-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* TA Catalog styles */
 .ta-catalog {
     display: flex;
     flex-wrap: wrap;
@@ -33,12 +44,154 @@
     color: inherit; /* Inherits text color from parent */
 }
 
-/* Main Menu styles */
-.title-container {
+.ta-filter-section {
+    display: flex;
+    flex-direction: column;
+}
+
+.ta-degree-filter {
+    display: flex;
+    margin: 20px;
+}
+
+.ta-sort-filter {
+    display: flex;
+    margin: 20px;
+}
+
+.add-ta-button-container {
+    display: flex;
+    justify-content: left;
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.add-ta-button {
+    display: block;
+    background: var(--success-colour);
+    color: white;
+    padding: 10px 20px;
+    margin: 5px;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.add-ta-button:hover {
+    filter: brightness(85%);
+}
+
+/* TA Detail Styles */
+.ta-detail {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+}
+
+.ta-detail-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+    max-width: 500px;
+}
+
+.ta-profile-picture {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 20px;
+}
+
+/* Add TA styles */
+.add-ta-container {
     display: flex;
     justify-content: center;
+    padding: 20px;
+}
+
+.add-ta-card {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+    max-width: 600px;
+}
+
+.add-ta-form {
+    display: flex;
+    flex-direction: column;
     align-items: center;
 }
+
+.add-ta-form-items-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+}
+
+.add-ta-form-item {
+    display: flex;
+    margin: 10px;
+}
+
+.add-ta-form-item label {
+    margin-right: 10px;
+}
+
+.add-ta-form-item input {
+    flex: 1;
+}
+
+/**
+Components
+ */
+
+/* Modal Styles */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0); /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4); /* Black w/ opacity */
+}
+
+.modal-content {
+    background-color: white;
+    margin: 15% auto; /* 15% from the top and centered */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 650px;
+}
+
+.close-button {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 
 /* Navigation Bar styles */
 .navbar {

@@ -7,12 +7,22 @@ require_once 'config.php'; // Include the configuration file
 include DATA_ACCESS_PATH . 'connectToDatabase.php'; // Include the database connection ?>
 
 <?php
-$sortOption = isset($_GET['sort']) ? $_GET['sort'] : 'nameAsc';
+$sortOption = $_GET['sort'] ?? 'nameAsc';
+$degreeFilter = $_GET['degreeFilter'] ?? 'all';
 
-$sql = match ($sortOption) {
-    'degree' => "SELECT * FROM ta ORDER BY degreetype ASC, lastname ASC, firstname ASC",
-    'nameDesc' => "SELECT * FROM ta ORDER BY lastname DESC, firstname DESC",
-    default => "SELECT * FROM ta ORDER BY lastname ASC, firstname ASC",
+// Construct the base SQL query
+$sql = "SELECT * FROM ta";
+
+// Apply degree filter if not 'all'
+if ($degreeFilter !== 'all') {
+    $sql .= " WHERE degreetype = '$degreeFilter'";
+}
+
+// Apply sorting
+$sql .= match ($sortOption) {
+    'degree' => " ORDER BY degreetype ASC",
+    'nameDesc' => " ORDER BY lastname DESC",
+    'nameAsc' => " ORDER BY lastname ASC",
 };
 
 $result = $connection->query($sql);
@@ -29,24 +39,46 @@ $result = $connection->query($sql);
 
 <?php include COMPONENTS_PATH . 'navigation-bar.php'; ?>
 
-<form action="list-ta.php" method="get">
-    <input type="radio" id="nameAsc" name="sort"
-           value="nameAsc" <?php echo($sortOption == 'nameAsc' ? 'checked' : ''); ?>>
-    <label for="nameAsc">Sort by Name Ascending</label>
+<div class="add-ta-button-container">
+    <a href="add-ta.php" class="add-ta-button">&#43; Add TA</a>
+</div>
 
-    <input type="radio" id="nameDesc" name="sort"
-           value="nameDesc" <?php echo($sortOption == 'nameDesc' ? 'checked' : ''); ?>>
-    <label for="nameDesc">Sort by Name Descending</label>
+<div class="ta-filter-section">
+    <form action="list-ta.php" method="get" id="sortForm">
+        <div class="ta-degree-filter">
+            <label for="degreeFilter">Degree Type:
+                <select name="degreeFilter" onchange="this.form.submit()">
+                    <option value="all" <?php echo($degreeFilter == 'all' ? 'selected' : ''); ?>>All</option>
+                    <option value="Masters" <?php echo($degreeFilter == 'Masters' ? 'selected' : ''); ?>>Masters
+                    </option>
+                    <option value="PhD" <?php echo($degreeFilter == 'PhD' ? 'selected' : ''); ?>>PhD</option>
+                </select>
+            </label>
+        </div>
 
-    <input type="radio" id="degree" name="sort" value="degree"
-        <?php echo($sortOption == 'degree' ? 'checked' : ''); ?>
-    >
+        <div class="ta-sort-filter">
+            <input type="radio" id="nameAsc" name="sort"
+                   value="nameAsc"
+                <?php echo($sortOption == 'nameAsc' ? 'checked' : ''); ?>
+                   onchange="this.form.submit()"
+            >
+            <label for="nameAsc">Sort by Name Ascending</label>
 
-    <label for="degree">Sort by Degree</label>
+            <input type="radio" id="nameDesc" name="sort"
+                   value="nameDesc"
+                <?php echo($sortOption == 'nameDesc' ? 'checked' : ''); ?>
+                   onchange="this.form.submit()"
+            >
+            <label for="nameDesc">Sort by Name Descending</label>
 
-    <input type="submit" value="Sort">
-</form>
-
+            <input type="radio" id="degree" name="sort" value="degree"
+                <?php echo($sortOption == 'degree' ? 'checked' : ''); ?>
+                   onchange="this.form.submit()"
+            >
+            <label for="degree">Sort by Degree</label>
+        </div>
+    </form>
+</div>
 
 <div class="ta-catalog">
     <?php

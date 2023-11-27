@@ -5,8 +5,8 @@
  */
 
 // Base URL
-//define('BASE_URL', 'http://cs3319.gaul.csd.uwo.ca/vm098/67_assignment3/');
-const BASE_URL = 'http://localhost:63342/cs3319_assignment3/';
+define('BASE_URL', 'http://cs3319.gaul.csd.uwo.ca/vm098/a3bug/');
+//const BASE_URL = 'http://localhost:63342/cs3319_assignment3/';
 
 // Paths relative to the root of your application directory
 const COMPONENTS_PATH = __DIR__ . '/components/';

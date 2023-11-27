@@ -128,7 +128,6 @@ if ($course_offering_result->num_rows == 0 || empty($course_offering_array)) {
     ?>
 </div>
 
-
 </body>
 </html>
 

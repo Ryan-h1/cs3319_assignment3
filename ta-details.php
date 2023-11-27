@@ -84,7 +84,7 @@ if (isset($_GET['taid'])) {
                              htmlspecialchars($taDetails["lastname"]); ?>">
                 <?php else: ?>
                     <img class="ta-profile-picture"
-                         src="https://christopherscottedwards.com/wp-content/uploads/2018/07/Generic-Profile.jpg"
+                         src="<?php echo DEFAULT_TA_IMAGE; ?>"
                          alt="Generic profile picture">
                 <?php endif; ?>
 

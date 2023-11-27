@@ -4,6 +4,7 @@
  * This file contains the HTML for the TA profile component.
  * It is used to display the TA's details.
  */
+require_once __DIR__ . '/../config.php'; // Configuration file
 ?>
 
 <?php if (isset($taDetails)): ?>
@@ -17,7 +18,7 @@
                          htmlspecialchars($taDetails["lastname"]); ?>">
             <?php else: ?>
                 <img class="ta-profile-picture"
-                     src="https://christopherscottedwards.com/wp-content/uploads/2018/07/Generic-Profile.jpg"
+                     src="<?php echo DEFAULT_TA_IMAGE; ?>"
                      alt="Generic profile picture">
             <?php endif; ?>
 
@@ -33,7 +34,7 @@
     <div class="ta-detail">
         <div class="ta-detail-card">
             <img class="ta-profile-picture"
-                 src="https://christopherscottedwards.com/wp-content/uploads/2018/07/Generic-Profile.jpg"
+                 src="<?php echo DEFAULT_TA_IMAGE; ?>"
                  alt="Generic profile picture">
 
             <h2><?php echo "TA Details Not Found" ?></h2>

@@ -1,4 +1,8 @@
 <?php
+/**
+ * @author 67
+ * This file establishes the connection to the SQL database using the credentials in the config file.
+ */
 require_once __DIR__ . '/../config.php'; // Include the configuration file
 
 // Create connection

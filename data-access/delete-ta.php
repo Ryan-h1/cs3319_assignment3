@@ -1,5 +1,6 @@
 <?php global $connection;
 /**
+ * @author 67
  * This file deletes a TA from the database.
  */
 require_once __DIR__ . '/../config.php'; // Include the configuration file

@@ -1,6 +1,7 @@
 <?php global $connection;
 /**
- * This file lists all TAs in the database.
+ * @author 67
+ * This file lists all TAs in the database and allows a user to delete a TA when the user clicks on any given TA.
  */
 
 require_once 'config.php'; // Include the configuration file
@@ -43,6 +44,13 @@ $result = $connection->query($sql);
 
     <!-- Navigation Bar -->
     <?php include COMPONENTS_PATH . 'navigation-bar.php'; ?>
+
+    <!-- Sub Header -->
+    <div class="subheader-container">
+        <h2>
+            <?php echo "Delete TAs By Clicking On Them"; ?>
+        </h2>
+    </div>
 
     <div class="ta-filter-section">
         <form action="delete-ta.php" method="get" id="sortForm">

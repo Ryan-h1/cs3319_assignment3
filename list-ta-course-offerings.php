@@ -1,7 +1,8 @@
 <?php global $connection;
 /**
  * @author 67
- * This file lists all TAs in the database and allows the user to select a TA to assign them to courses
+ * This file lists all TAs in the database. When a user clicks on the TA, it brings them to
+ * a page that lists all the course offerings that TA has worked on.
  */
 require_once 'config.php'; // Include the configuration file
 include DATA_ACCESS_PATH . 'connect-to-database.php'; // Include the database connection
@@ -33,7 +34,7 @@ $result = $connection->query($sql);
     <html lang="en">
     <head>
         <meta charset="UTF-8">
-        <title>Assign TAs</title>
+        <title>List TAs</title>
         <link rel="stylesheet" href="<?php echo BASE_URL; ?>styles/styles.css">
     </head>
     <body>
@@ -44,12 +45,12 @@ $result = $connection->query($sql);
     <!-- Sub Header -->
     <div class="subheader-container">
         <h2>
-            <?php echo "Assign TA's To Course Offerings By Clicking On Them"; ?>
+            <?php echo "View The Course Offerings Of a TA By Clicking On Them"; ?>
         </h2>
     </div>
 
     <div class="ta-filter-section">
-        <form action="assign-ta-couresoffering.php" method="get" id="sortForm">
+        <form action="list-ta.php" method="get" id="sortForm">
             <div class="ta-degree-filter">
                 <label for="degreeFilter">Degree Type:
                     <select name="degreeFilter" onchange="this.form.submit()">
@@ -94,7 +95,7 @@ $result = $connection->query($sql);
         <?php
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                echo "<a href='assign-ta-course-details.php?taid=" . urlencode($row["tauserid"]) . "' class='ta-card-link'>";
+                echo "<a href='list-courses-worked-on-by-ta.php?taId=" . urlencode($row["tauserid"]) . "' class='ta-card-link'>";
                 echo "<div class='ta-card' data-ta-id='" . htmlspecialchars($row["tauserid"]) . "' data-ta-name='" . htmlspecialchars($row["firstname"]) . " " . htmlspecialchars($row["lastname"]) . "'>";
                 echo "<h3>" . htmlspecialchars($row["firstname"]) . " " . htmlspecialchars($row["lastname"]) . "</h3>";
                 echo "<p>TA ID: " . htmlspecialchars($row["tauserid"]) . "</p>";
@@ -108,6 +109,7 @@ $result = $connection->query($sql);
         }
         ?>
     </div>
+
 
     </body>
     </html>

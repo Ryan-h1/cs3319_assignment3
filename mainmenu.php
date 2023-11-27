@@ -1,5 +1,6 @@
 <?php
-/*
+/**
+ * @author 67
  * This file is the main menu for the TA Application.
  */
 

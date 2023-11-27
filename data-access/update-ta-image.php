@@ -1,5 +1,6 @@
 <?php global $connection;
 /**
+ * @author 67
  * This file updates the image URL of a TA in the database.
  */
 require_once __DIR__ . '/../config.php'; // Configuration file

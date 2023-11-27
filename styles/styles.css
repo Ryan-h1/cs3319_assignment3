@@ -1,4 +1,7 @@
-/* styles.css */
+/**
+ * @author 67
+ * styles.css
+ */
 
 /* Global styles */
 :root {
@@ -7,6 +10,12 @@
     --success-colour: green;
     --danger-colour: red;
     --warn-colour: orange;
+}
+
+.subheader-container {
+    display: flex;
+    padding-left: 10px;
+    margin-bottom: -18px;
 }
 
 /* Main Menu styles */
@@ -266,6 +275,37 @@
 }
 
 /**
+Course Offering Details Styles
+ */
+.course-offering-detail-sort-filter {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.course-offering-detail-sort-filter label {
+    margin-right: 10px;
+}
+
+.course-offering-detail-sort-filter input {
+    margin-right: 15px;
+}
+
+.course-offering-filter-button-container {
+    display: flex;
+    margin-top: 10px;
+}
+
+/**
+Courses Worked on By TA Styles
+ */
+.courses-worked-on-by-ta-container {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px;
+}
+
+/**
 Components
  */
 
@@ -324,9 +364,10 @@ Components
 }
 
 /* Navigation Bar styles */
-
 .navbar {
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
 }
 
 .nav-button {
@@ -344,3 +385,8 @@ Components
 .nav-button:hover {
     background-color: var(--secondary-colour);
 }
+
+
+
+
+

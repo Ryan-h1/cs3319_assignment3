@@ -1,5 +1,9 @@
 <?php
 global $connection;
+/**
+ * @author 67
+ * This file assigns a TA to a course offering.
+ */
 require_once __DIR__ . '/../config.php'; // Include the configuration file
 include DATA_ACCESS_PATH . 'connect-to-database.php'; // Include the database connection
 

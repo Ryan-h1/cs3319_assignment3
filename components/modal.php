@@ -1,5 +1,6 @@
 <?php
 /**
+ * @author 67
  * This file constitutes the modal component for the application.
  */
 

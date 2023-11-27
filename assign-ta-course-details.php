@@ -1,5 +1,6 @@
 <?php global $connection;
 /**
+ * @author 67
  * This file displays the details of a TA and allows the user to assign course offerings to the TA.
  */
 require_once 'config.php'; // Include the configuration file
@@ -21,13 +22,14 @@ if (isset($_GET['taid'])) {
     $ta_query_statement->bind_param("s", $taId);
     $ta_query_statement->execute();
     $ta_result = $ta_query_statement->get_result();
-    if ($ta_result->num_rows > 0) {
-        // Fetch associative array for the TA
-        $taDetails = $ta_result->fetch_assoc();
-        // Now we can echo out the TA details in HTML
-    } else {
-        echo "No TA found with ID: " . htmlspecialchars($taId);
+
+    if ($ta_result->num_rows < 1) {
+        echo "<script type='text/javascript'>";
+        echo "showModal('danger', 'Error', 'TA not found with ID: $taId');";
+        echo "</script>";
     }
+
+    $taDetails = $ta_result->fetch_assoc();
     $ta_query_statement->close();
 
     // Course offering query
@@ -53,29 +55,8 @@ if (isset($_GET['taid'])) {
     <?php include COMPONENTS_PATH . 'navigation-bar.php'; ?>
 
     <div class="course-offering-assignment-container">
-        <div class="ta-detail">
-            <div class="ta-detail-card">
-                <?php if (isset($taDetails)): ?>
-                    <!-- Check if the TA has an image URL and display it -->
-                    <?php if (!empty($taDetails["image"])): ?>
-                        <img class="ta-profile-picture"
-                             src="<?php echo htmlspecialchars($taDetails["image"]); ?>"
-                             alt="Photo of <?php echo htmlspecialchars($taDetails["firstname"]) . " " .
-                                 htmlspecialchars($taDetails["lastname"]); ?>">
-                    <?php else: ?>
-                        <img class="ta-profile-picture"
-                             src="https://christopherscottedwards.com/wp-content/uploads/2018/07/Generic-Profile.jpg"
-                             alt="Generic profile picture">
-                    <?php endif; ?>
 
-
-                    <h2><?php echo htmlspecialchars($taDetails["firstname"]) . " " . htmlspecialchars($taDetails["lastname"]); ?></h2>
-                    <p>TA ID: <?php echo htmlspecialchars($taDetails["tauserid"]); ?></p>
-                    <p>Degree: <?php echo htmlspecialchars($taDetails["degreetype"]); ?></p>
-                    <p>Student Number: <?php echo htmlspecialchars($taDetails["studentnum"]); ?></p>
-                <?php endif; ?>
-            </div>
-        </div>
+        <?php include COMPONENTS_PATH . 'ta-profile.php'; ?>
 
         <div class="course-offering-list">
             <form action="<?php echo BASE_URL . 'data-access/update-ta-course-offering.php'; ?>" method="post">

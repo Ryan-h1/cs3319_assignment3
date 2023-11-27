@@ -1,5 +1,6 @@
 <?php global $connection;
 /**
+ * @author 67
  * This file allows the user to add a new TA to the database.
  */
 

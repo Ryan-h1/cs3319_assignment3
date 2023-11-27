@@ -1,8 +1,9 @@
 <?php global $connection;
 /**
- * This file lists all TAs in the database.
+ * @author 67
+ * This file lists all TAs in the database and allows a user to see more details about a TA when
+ * the user clicks on any given TA.
  */
-
 require_once 'config.php'; // Include the configuration file
 include DATA_ACCESS_PATH . 'connect-to-database.php'; // Include the database connection
 include COMPONENTS_PATH . 'modal.php' ?>
@@ -40,6 +41,13 @@ $result = $connection->query($sql);
 
     <!-- Navigation Bar -->
     <?php include COMPONENTS_PATH . 'navigation-bar.php'; ?>
+
+    <!-- Sub Header -->
+    <div class="subheader-container">
+        <h2>
+            <?php echo "View & Edit TA Details By Clicking On Them"; ?>
+        </h2>
+    </div>
 
     <div class="ta-filter-section">
         <form action="list-ta.php" method="get" id="sortForm">

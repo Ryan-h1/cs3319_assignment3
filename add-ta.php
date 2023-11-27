@@ -4,7 +4,7 @@
  */
 
 require_once 'config.php'; // Include the configuration file
-include DATA_ACCESS_PATH . 'connectToDatabase.php'; // Include the database connection
+include DATA_ACCESS_PATH . 'connect-to-database.php'; // Include the database connection
 include COMPONENTS_PATH . 'modal.php';
 ?>
 
@@ -26,8 +26,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $studentNum = $_POST['studentnum'];
     $degreeType = $_POST['degreetype'];
     $image = $_POST['image'];
-    $lovesCourses = $_POST['loves_courses']; // Array of course numbers TA loves
-    $hatesCourses = $_POST['hates_courses']; // Array of course numbers TA hates
+    $lovesCourses = $_POST['loves_courses'] ?? []; // Array of course numbers TA loves
+    $hatesCourses = $_POST['hates_courses'] ?? []; // Array of course numbers TA hates
 
     // Prepare an INSERT statement to avoid SQL injection
     $insert_statement = $connection->prepare(
@@ -61,20 +61,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             $messageType = 'error';
         } else {
-            $loves_insert_statement = $connection->prepare("INSERT INTO loves VALUES (?, ?)");
-            $hates_insert_statement = $connection->prepare("INSERT INTO hates VALUES (?, ?)");
-
-            foreach ($lovesCourses as $courseNum) {
-                $loves_insert_statement->bind_param("ss", $taUserId, $courseNum);
-                $loves_insert_statement->execute();
+            if (is_array($lovesCourses)) {
+                $loves_insert_statement = $connection->prepare("INSERT INTO loves VALUES (?, ?)");
+                foreach ($lovesCourses as $courseNum) {
+                    $loves_insert_statement->bind_param("ss", $taUserId, $courseNum);
+                    $loves_insert_statement->execute();
+                }
+                $loves_insert_statement->close();
             }
-            $loves_insert_statement->close();
 
-            foreach ($hatesCourses as $courseNum) {
-                $hates_insert_statement->bind_param("ss", $taUserId, $courseNum);
-                $hates_insert_statement->execute();
+            if (is_array($hatesCourses)) {
+                $hates_insert_statement = $connection->prepare("INSERT INTO hates VALUES (?, ?)");
+                foreach ($hatesCourses as $courseNum) {
+                    $hates_insert_statement->bind_param("ss", $taUserId, $courseNum);
+                    $hates_insert_statement->execute();
+                }
+                $hates_insert_statement->close();
             }
-            $hates_insert_statement->close();
 
             $message = "New TA added successfully";
             $messageType = 'success';
@@ -153,7 +156,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <?php endforeach; ?>
                         </select>
                     </div>
-                    <input type="submit" value="Add TA">
+                    <input class="modal-proceed-button" type="submit" value="Add TA">
                 </div>
             </form>
         </div>
@@ -187,7 +190,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             };
             testImage.src = src;
         }
-
     </script>
 
     </body>

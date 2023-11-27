@@ -4,7 +4,7 @@
  */
 
 require_once 'config.php'; // Include the configuration file
-include DATA_ACCESS_PATH . 'connectToDatabase.php'; // Include the database connection
+include DATA_ACCESS_PATH . 'connect-to-database.php'; // Include the database connection
 include COMPONENTS_PATH . 'modal.php';
 ?>
 
@@ -88,6 +88,22 @@ if (isset($_GET['taid'])) {
                          alt="Generic profile picture">
                 <?php endif; ?>
 
+                <a class="modal-proceed-button" onclick="showEditForm()">Edit</a>
+
+                <!-- Hidden Form Input -->
+                <div id="editForm" style="display: none;">
+                    <form action="data-access/update-ta-image.php" method="post">
+                        <div class="add-ta-form-item">
+                            <label>
+                                <input type="text" name="newImageUrl" placeholder="Enter new image URL"
+                                       oninput="updateImage(this.value)" maxlength="200">
+                            </label>
+                            <input type="submit" value="Update Image">
+                        </div>
+                        <input type="hidden" name="taId" value="<?php echo htmlspecialchars($taId); ?>">
+                    </form>
+                </div>
+
                 <h2><?php echo htmlspecialchars($taDetails["firstname"]) . " " . htmlspecialchars($taDetails["lastname"]); ?></h2>
                 <p>TA ID: <?php echo htmlspecialchars($taDetails["tauserid"]); ?></p>
                 <p>Degree: <?php echo htmlspecialchars($taDetails["degreetype"]); ?></p>
@@ -119,6 +135,26 @@ if (isset($_GET['taid'])) {
             <?php endif; ?>
         </div>
     </div>
+
+    <script type="text/javascript">
+        function showEditForm() {
+            document.getElementById('editForm').style.display = 'block';
+        }
+
+        function updateImage(src) {
+            const imgElement = document.querySelector('.ta-profile-picture');
+            const testImage = new Image();
+            testImage.onload = function () {
+                // If the image loads successfully, set the src to the entered URL
+                imgElement.src = src;
+            };
+            testImage.onerror = function () {
+                // If the image fails to load, set the src to the default image
+                imgElement.src = "<?php echo DEFAULT_TA_IMAGE; ?>";
+            };
+            testImage.src = src;
+        }
+    </script>
 
     </body>
     </html>

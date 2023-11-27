@@ -3,7 +3,7 @@
  * This file deletes a TA from the database.
  */
 require_once __DIR__ . '/../config.php'; // Include the configuration file
-include DATA_ACCESS_PATH . 'connectToDatabase.php'; // Include the database connection
+include DATA_ACCESS_PATH . 'connect-to-database.php'; // Include the database connection
 
 header('Content-Type: application/json');
 
